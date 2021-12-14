@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="StudentSeating.Views.EmptySeat"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:StudentSeating.Views"
+        mc:Ignorable="d"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Height="450" Width="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding DialogClose}" CommandParameter="false"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <GroupBox x:Name="seatInfo" Grid.Row="0" Header="Seat Info" Padding="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Seat Name" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                          BorderThickness="0">
+                    <TextBox x:Name="selectedSeat" Text="{Binding ContextSeat.SeatId, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
+                </GroupBox>
+                <GroupBox Header="Seat Status" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                          BorderThickness="0">
+                    <TextBox x:Name="seatStatus" Text="{Binding ContextSeat.Status, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"/>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="studentInfo" Grid.Row="1" Header="Student Info" Padding="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height=".2*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="Student VID" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                          BorderThickness="0">
+                    <TextBox x:Name="StudentVID" Grid.Column="2" Text="{Binding ContextSeat.StudentVid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
+                </GroupBox>
+                <GroupBox Header="Student Name" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                          BorderThickness="0">
+                    <TextBox x:Name="StudentName" Grid.Column="2" Text="{Binding ContextSeat.StudentName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="examInfo" Grid.RowSpan="3" Grid.Column="2" Header="Exam Info">
+            <StackPanel Grid.Row="2" VerticalAlignment="Stretch">
+                <GroupBox x:Name="ProfessorPanel" Grid.Row="0" Header="Professor" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                          BorderThickness="0">
+                    <ComboBox ItemsSource="{Binding Professors}" IsEnabled="{Binding IsProfessorCmbEnabled}" SelectedIndex="{Binding SelectedProfessor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    </ComboBox>
+                </GroupBox>
+                <GroupBox x:Name="ExamPanel" Grid.Row="1" Header="Exam" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                          BorderThickness="0">
+                    <ComboBox ItemsSource="{Binding ProfessorExams}" IsEnabled="{Binding IsExamCmbEnabled}" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    </ComboBox>
+                </GroupBox>
+                <GroupBox Header="Calculators Allowed" Grid.Row="2" MinHeight="60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                              BorderThickness="0">
+                    <TextBox Text="{Binding CalculatorsAllowed, Mode=OneWay}" IsReadOnly="True"/>
+                </GroupBox>
+                <GroupBox Header="Notes/Formulas" Grid.Row="3" MinHeight="65" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                              BorderThickness="0">
+                    <TextBox Text="{Binding NotesFormulas, Mode=OneWay}" IsReadOnly="True"/>
+                </GroupBox>
+                <GroupBox Header="Other Items" Grid.Row="4" MinHeight="60" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                              BorderThickness="0">
+                    <TextBox Text="{Binding OtherItems, Mode=OneWay, NotifyOnSourceUpdated=True}" IsReadOnly="True"/>
+                </GroupBox>
+            </StackPanel>
+        </GroupBox>
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Grid.Column="6" x:Name="studentViewClose" Content="Close" Command="{Binding DialogClose}" CommandParameter="false"  Margin="5, 5, 5, 5" MinWidth="100"/>
+            <Button Grid.Column="4" x:Name="studentViewSeatExam" Content="Seat Exam" Command="{Binding SeatExam}" Margin="5, 5, 0, 5" MinWidth="100"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

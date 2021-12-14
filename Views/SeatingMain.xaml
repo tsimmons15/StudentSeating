@@ -1,0 +1,53 @@
+﻿<mah:MetroWindow x:Class="StudentSeating.Views.SeatingMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:StudentSeating.Views"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:fragments="clr-namespace:StudentSeating.Views.Fragments"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="Student Seating" 
+        WindowState="Maximized"
+        ResizeMode="CanResizeWithGrip">
+    <!--FontSize="{Binding AppFontSize}"-->
+    <i:Interaction.Triggers>
+        <!--<i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FinishInitialization}"/>
+        </i:EventTrigger>-->
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding CloseCalled}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height=".5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <Expander Name="optionsExpander" Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" ExpandDirection="Right" VerticalAlignment="Stretch" IsExpanded="True">
+            <fragments:Options/>
+            <!--  FontSize="{Binding AppFontSize}"-->
+        </Expander>
+        <!--<mah:ToggleSwitch Grid.Row="0" Grid.Column="1" IsOn="{Binding Mode=OneWayToSource, Path=DisplayDataFragment}" OnContent="Data View" OffContent="Seating" HorizontalAlignment="Right" FlowDirection="RightToLeft"/>-->
+        <!--<fragments:SeatingFragment Grid.Row="1" Grid.Column="1" FontSize="{Binding AppFontSize}"/>-->
+
+        <ScrollViewer Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid Name="SeatingFragment">
+            </Grid>
+        </ScrollViewer>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Margin="0 0 5 5">
+            <Button x:Name="CleanRoom" Content="Clear Rooms" Command="{Binding ClearRooms}"/>
+            <Button x:Name="AutoSeat" Content="Seat New Exam" Command="{Binding SeatExam}"/>
+        </StackPanel>
+    </Grid>
+</mah:MetroWindow>

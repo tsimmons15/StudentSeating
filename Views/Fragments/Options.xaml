@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="StudentSeating.Views.Fragments.Options"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:local="clr-namespace:StudentSeating.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="300">
+    <DockPanel LastChildFill="True">
+        <Button x:Name="btnRefreshData" Content="Refresh Data" Command="{Binding RefreshData}" DockPanel.Dock="Top"/>
+        <Button x:Name="btnLog" Content="Open Seating Logs" Command="{Binding OpenSeatingLogs}" DockPanel.Dock="Top"/>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Grid.Column="0" Name="btnOptionsRevert" Content="Cancel" Command="{Binding OptionsRevert}"/>
+            <Button Grid.Row="0" Grid.Column="1" Name="btnOptionsApply" Content="Apply" Command="{Binding OptionsUpdate}"/>
+        </Grid>
+        <Border BorderBrush="DarkSlateGray" BorderThickness="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" DockPanel.Dock="Top" Margin="5,0,5,0">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Font Size"/>
+                    <mah:NumericUpDown Name="txtFontSize" Minimum="10" Maximum="100" Interval="1" Value="{Binding AppFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Separator/>
+                    <mah:ToggleSwitch Name="chkMonitorExams" OnContent="Monitor Exams" OffContent="Do Not Monitor Exams" IsOn="{Binding MonitorExams, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="Exam Sheet"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Name="txtFilePath" Text="{Binding ExamFilePath, UpdateSourceTrigger=PropertyChanged}"  mah:TextBoxHelper.Watermark="Exam excel file..."/>
+                        <Button Grid.Row="0" Grid.Column="1" Name="btnSelectPath" Content="Browse" Command="{Binding SelectExamFilePath}"/>
+                    </Grid>
+
+                    <TextBlock Name="txtMonitoring" Text="{Binding TestPublishing, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <mah:ToggleSwitch Name="chkLockFullscreen" HorizontalAlignment="Stretch" OnContent="Fullscreen Locked" OffContent="Fullscreen Unlocked"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </DockPanel>
+</UserControl>
